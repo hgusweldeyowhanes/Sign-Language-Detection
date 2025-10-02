@@ -1,12 +1,12 @@
 # Sign Language Detection Using Deep Learning and Computer Vision
 
-## 📌 Project Overview
+## Project Overview
 This project aims to **detect and classify sign language gestures** using **Computer Vision** and a **Convolutional Neural Network (CNN)**.  
 The model processes images or real-time webcam input to identify hand gestures, making it useful for accessibility, communication, and educational applications.
 
 ---
 
-## ✨ Features
+## Features
 - **Real-time Detection:** Live hand gesture recognition using a webcam.  
 - **CNN-Based Model:** Deep learning model for accurate classification.  
 - **Multiple Classes:** Supports customizable sign language gestures.  
@@ -25,7 +25,7 @@ The model processes images or real-time webcam input to identify hand gestures, 
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 1. **Clone the repository:**
    ```bash
@@ -63,7 +63,7 @@ Data/
 
 ```
 
-##🧠Model Architecture
+## Model Architecture
 Input Layer: 224×224 RGB images
 
 Convolutional Layers: Multiple Conv2D layers with ReLU activation
@@ -74,20 +74,20 @@ Dropout Layers: Prevents overfitting
 
 Output Layer: Softmax classifier (number of gesture classes)
 
-📊 Performance
+## Performance
 Accuracy: ~95–100% (depending on dataset & training)
 
 Confusion Matrix: Visualizes misclassifications
 
 Balanced Accuracy: Effective with class imbalance
 
-🚀 Usage
+## Usage
 
 Run real-time detection with webcam:
 ```bash
 jupyter notebook Prediction.ipynb
 ```
-📌 Future Improvements
+## Future Improvements
 
 Expand dataset with more sign language gestures
 
