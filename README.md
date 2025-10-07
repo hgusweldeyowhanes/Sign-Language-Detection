@@ -5,6 +5,16 @@ This project aims to **detect and classify sign language gestures** using **Comp
 The model processes images or real-time webcam input to identify hand gestures, making it useful for accessibility, communication, and educational applications.
 
 ---
+## Table of Contents
+* [Features](#features)
+* [Installation](#installation)
+* [Dataset](#dataset)
+* [Technologies-Used](#technologies-used)
+* [Model-Architecture](#model-architecture)
+* [Performance](#performance)
+* [Usage](#usage)
+* [Futere-Improvement](#future-improvements)
+* [Conclusion](#conclusion)
 
 ## Features
 - **Real-time Detection:** Live hand gesture recognition using a webcam.  
@@ -14,17 +24,6 @@ The model processes images or real-time webcam input to identify hand gestures, 
 - **Performance Metrics:** Evaluated using accuracy, confusion matrix, and balanced accuracy.  
 
 ---
-
-## 🛠 Technologies Used
-- **Python 3.x**
-- **OpenCV** – Image and video processing  
-- **Mediapipe / cvzone** – Hand tracking & keypoint extraction  
-- **TensorFlow / Keras** – CNN model training & inference  
-- **NumPy & Pandas** – Data handling  
-- **Matplotlib / Seaborn** – Performance visualization  
-
----
-
 ## Installation
 
 1. **Clone the repository:**
@@ -62,6 +61,16 @@ Data/
     └── CLASS_3/
 
 ```
+## Technologies Used
+- **Python 3.x**
+- **OpenCV** – Image and video processing  
+- **Mediapipe / cvzone** – Hand tracking & keypoint extraction  
+- **TensorFlow / Keras** – CNN model training & inference  
+- **NumPy & Pandas** – Data handling  
+- **Matplotlib / Seaborn** – Performance visualization  
+
+---
+
 
 ## Model Architecture
 Input Layer: 224×224 RGB images
@@ -94,3 +103,5 @@ Expand dataset with more sign language gestures
 Add multilingual sign language support
 
 Deploy as a web or mobile app
+## Conclusion
+
