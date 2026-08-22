@@ -22,6 +22,7 @@ The model processes images or real-time webcam input to identify hand gestures, 
 - **Multiple Classes:** Supports customizable sign language gestures.  
 - **Preprocessing Pipeline:** Includes hand tracking and image preprocessing.  
 - **Performance Metrics:** Evaluated using accuracy, confusion matrix, and balanced accuracy.  
+- **Conversation Mode (advanced):** Stable signs become a live sentence, with TTS speak-back, guided practice targets, confidence meters, undo/clear, and TXT/JSON transcript export (`python run_advanced.py`).  
 
 ---
 ## Installation
@@ -43,6 +44,7 @@ venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
+4. Place your trained weights at the project root as `best_model.keras`.
 ## Dataset
 The dataset consists of images of hand gestures representing different classes of sign language.
 ```bash
@@ -92,7 +94,13 @@ Balanced Accuracy: Effective with class imbalance
 
 ## Usage
 
-Run real-time detection with webcam:
+### Advanced Conversation Studio (recommended)
+```bash
+python run_advanced.py
+```
+Features: live confidence bars, sentence buffer, text-to-speech, practice targets, export transcript.
+
+### Classic notebook UI
 ```bash
 jupyter notebook Prediction.ipynb
 ```
