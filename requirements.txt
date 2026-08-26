@@ -9,3 +9,4 @@ keras
 scikit-learn
 pillow
 pyttsx3
+pytest

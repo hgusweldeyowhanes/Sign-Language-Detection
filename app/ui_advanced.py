@@ -11,18 +11,23 @@ from PIL import Image, ImageTk
 
 from .config import LABELS, ROOT
 from .detector import SignDetector
+from .fingerspell import FingerspellEngine, SpellEvent
+from .landmarks import LandmarkTracker, draw_fingerspell_overlay, guess_from_hand, primary_hand
 from .model_loader import load_classifier
 from .phrase_engine import PhraseEngine
-from .practice import PracticeSession
+from .practice import PracticeSession, SpellPractice
 from .tts import Speaker
+
+MODE_PHRASE = "phrases"
+MODE_SPELL = "fingerspell"
 
 
 class ConversationStudio:
-    def __init__(self, model_path=None):
+    def __init__(self, model_path=None, mode: str = MODE_PHRASE):
         self.root = tk.Tk()
         self.root.title("Sign Studio — Conversation Mode")
-        self.root.geometry("1180x720")
-        self.root.minsize(1000, 640)
+        self.root.geometry("1240x760")
+        self.root.minsize(1040, 680)
 
         try:
             self.model = load_classifier(model_path)
@@ -32,27 +37,37 @@ class ConversationStudio:
             self.model_error = str(e)
 
         self.detector = SignDetector(self.model) if self.model else None
+        self.tracker = LandmarkTracker(max_hands=2)
         self.engine = PhraseEngine()
+        self.speller = FingerspellEngine()
         self.practice = PracticeSession()
+        self.spell_practice = SpellPractice()
         self.speaker = Speaker(enabled=True)
         self.cap = None
         self._photo = None
+        self.mode = tk.StringVar(value=mode if mode in (MODE_PHRASE, MODE_SPELL) else MODE_PHRASE)
         self.practice_on = tk.BooleanVar(value=False)
         self.tts_on = tk.BooleanVar(value=True)
+        self.tts_letters_on = tk.BooleanVar(value=False)
         self.status = tk.StringVar(value="Ready")
         self.sentence_var = tk.StringVar(value="")
+        self.word_var = tk.StringVar(value="")
         self.live_label = tk.StringVar(value="—")
         self.live_conf = tk.StringVar(value="")
+        self.alts_var = tk.StringVar(value="")
         self.practice_msg = tk.StringVar(value=self.practice.message)
         self.prob_vars = {lab: tk.DoubleVar(value=0.0) for lab in LABELS}
 
         self._build_ui()
-        if self.model_error:
+        self._sync_mode()
+        if self.model_error and self.mode.get() == MODE_PHRASE:
             self.status.set(self.model_error)
-            messagebox.showwarning("Model missing", self.model_error)
-        else:
-            self._start_camera()
-
+            messagebox.showwarning(
+                "Model missing",
+                f"{self.model_error}\n\nFingerspell A–Z still works without the CNN. "
+                "Switch to Fingerspell mode, or place best_model.keras in the project root.",
+            )
+        self._start_camera()
         self.root.protocol("WM_DELETE_WINDOW", self._on_close)
 
     def _build_ui(self):
@@ -80,11 +95,16 @@ class ConversationStudio:
         ttk.Label(live_row, textvariable=self.live_conf, foreground="#555").pack(
             side="left", padx=10
         )
+        ttk.Label(live_row, textvariable=self.alts_var, foreground="#666").pack(
+            side="left", padx=6
+        )
 
-        ttk.Label(left, text="Class confidence", font=("Segoe UI", 10, "bold")).pack(
+        self.meters_frame = ttk.Frame(left)
+        self.meters_frame.pack(fill="x")
+        ttk.Label(self.meters_frame, text="Class confidence", font=("Segoe UI", 10, "bold")).pack(
             anchor="w", pady=(8, 2)
         )
-        meters = ttk.Frame(left)
+        meters = ttk.Frame(self.meters_frame)
         meters.pack(fill="x")
         for lab in LABELS:
             row = ttk.Frame(meters)
@@ -93,28 +113,66 @@ class ConversationStudio:
             bar = ttk.Progressbar(row, maximum=1.0, variable=self.prob_vars[lab], length=280)
             bar.pack(side="left", fill="x", expand=True)
 
-        right = ttk.Frame(top, width=420)
+        right = ttk.Frame(top, width=440)
         right.pack(side="right", fill="y")
         right.pack_propagate(False)
 
-        ttk.Label(right, text="Conversation Mode", font=("Segoe UI", 14, "bold")).pack(
+        ttk.Label(right, text="Conversation Studio", font=("Segoe UI", 14, "bold")).pack(
+            anchor="w"
+        )
+
+        mode_row = ttk.Frame(right)
+        mode_row.pack(fill="x", pady=(4, 8))
+        ttk.Radiobutton(
+            mode_row,
+            text="Phrase signs",
+            value=MODE_PHRASE,
+            variable=self.mode,
+            command=self._sync_mode,
+        ).pack(side="left")
+        ttk.Radiobutton(
+            mode_row,
+            text="Fingerspell A–Z",
+            value=MODE_SPELL,
+            variable=self.mode,
+            command=self._sync_mode,
+        ).pack(side="left", padx=8)
+
+        self.hint_var = tk.StringVar()
+        ttk.Label(right, textvariable=self.hint_var, wraplength=420).pack(anchor="w", pady=(0, 8))
+
+        self.word_block = ttk.Frame(right)
+        ttk.Label(self.word_block, text="Current word", font=("Segoe UI", 10, "bold")).pack(
             anchor="w"
         )
         ttk.Label(
-            right,
-            text="Stable signs become sentence tokens. Speak, practice, and export.",
+            self.word_block,
+            textvariable=self.word_var,
             wraplength=400,
-        ).pack(anchor="w", pady=(0, 8))
+            font=("Segoe UI", 16, "bold"),
+            background="#e8f5e9",
+            padding=8,
+        ).pack(fill="x", pady=4)
+        word_btns = ttk.Frame(self.word_block)
+        word_btns.pack(fill="x", pady=(0, 6))
+        ttk.Button(word_btns, text="Commit word", command=self._commit_word).pack(
+            side="left", padx=2
+        )
+        ttk.Button(word_btns, text="Backspace letter", command=self._backspace).pack(
+            side="left", padx=2
+        )
 
-        ttk.Label(right, text="Sentence", font=("Segoe UI", 10, "bold")).pack(anchor="w")
-        ttk.Label(
+        self.sentence_heading = ttk.Label(right, text="Sentence", font=("Segoe UI", 10, "bold"))
+        self.sentence_heading.pack(anchor="w")
+        self.sentence_label = ttk.Label(
             right,
             textvariable=self.sentence_var,
             wraplength=400,
             font=("Segoe UI", 13),
             background="#f7f1e6",
             padding=8,
-        ).pack(fill="x", pady=4)
+        )
+        self.sentence_label.pack(fill="x", pady=4)
 
         btns = ttk.Frame(right)
         btns.pack(fill="x", pady=6)
@@ -125,8 +183,11 @@ class ConversationStudio:
         )
 
         ttk.Checkbutton(
-            right, text="Speak each new phrase (TTS)", variable=self.tts_on
-        ).pack(anchor="w", pady=4)
+            right, text="Speak new phrases / words (TTS)", variable=self.tts_on
+        ).pack(anchor="w", pady=2)
+        ttk.Checkbutton(
+            right, text="Speak each fingerspelled letter", variable=self.tts_letters_on
+        ).pack(anchor="w")
 
         ttk.Separator(right).pack(fill="x", pady=10)
         ttk.Label(right, text="Practice Mode", font=("Segoe UI", 12, "bold")).pack(
@@ -144,7 +205,7 @@ class ConversationStudio:
 
         ttk.Separator(right).pack(fill="x", pady=10)
         ttk.Label(right, text="Transcript", font=("Segoe UI", 10, "bold")).pack(anchor="w")
-        self.transcript = tk.Text(right, height=14, wrap="word", font=("Consolas", 10))
+        self.transcript = tk.Text(right, height=12, wrap="word", font=("Consolas", 10))
         self.transcript.pack(fill="both", expand=True, pady=4)
 
         export_row = ttk.Frame(right)
@@ -160,6 +221,40 @@ class ConversationStudio:
         bottom.pack(fill="x")
         ttk.Label(bottom, textvariable=self.status).pack(anchor="w")
 
+    def _is_spell(self) -> bool:
+        return self.mode.get() == MODE_SPELL
+
+    def _active_engine(self):
+        return self.speller if self._is_spell() else self.engine
+
+    def _sync_mode(self):
+        if self._is_spell():
+            self.hint_var.set(
+                "Hold a letter still to add it. Drop your hand briefly before a double letter "
+                "(LL in HELLO). Pause ~1s or press Commit word to finish the word. "
+                "J looks like I; Z looks like D (they are motion signs)."
+            )
+            self.word_block.pack(fill="x", pady=(0, 6), before=self.sentence_heading)
+            self.meters_frame.pack_forget()
+            self.practice_msg.set(self.spell_practice.message)
+            self.word_var.set(self.speller.current_word or "—")
+            self.sentence_var.set(self.speller.sentence())
+            self.status.set("Fingerspell mode — A–Z from hand landmarks (no CNN needed).")
+            return
+
+        self.hint_var.set(
+            "Stable phrase signs become sentence tokens. Speak, practice, and export."
+        )
+        self.word_block.pack_forget()
+        self.meters_frame.pack(fill="x")
+        self.alts_var.set("")
+        self.practice_msg.set(self.practice.message)
+        self.sentence_var.set(self.engine.sentence())
+        if self.model_error:
+            self.status.set(self.model_error)
+        else:
+            self.status.set("Phrase mode — HELLO, THANK YOU, I LOVE YOU, GOODBYE.")
+
     def _start_camera(self):
         self.cap = cv2.VideoCapture(0)
         if not self.cap.isOpened():
@@ -169,7 +264,7 @@ class ConversationStudio:
         self._tick()
 
     def _tick(self):
-        if self.cap is None or self.detector is None:
+        if self.cap is None:
             return
         ok, frame = self.cap.read()
         if not ok:
@@ -177,6 +272,31 @@ class ConversationStudio:
             return
 
         frame = cv2.flip(frame, 1)
+        if self._is_spell():
+            annotated = self._tick_fingerspell(frame)
+        else:
+            annotated = self._tick_phrases(frame)
+
+        rgb = cv2.cvtColor(annotated, cv2.COLOR_BGR2RGB)
+        image = Image.fromarray(rgb)
+        image = image.resize((720, 540))
+        self._photo = ImageTk.PhotoImage(image)
+        self.camera_label.configure(image=self._photo)
+        self.root.after(20, self._tick)
+
+    def _tick_phrases(self, frame):
+        if self.detector is None:
+            cv2.putText(
+                frame,
+                "Place best_model.keras or switch to Fingerspell",
+                (24, 48),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (40, 40, 200),
+                2,
+            )
+            return frame
+
         result = self.detector.predict_frame(frame)
         for lab, val in result["probs"].items():
             if lab in self.prob_vars:
@@ -191,19 +311,37 @@ class ConversationStudio:
 
         committed = self.engine.update(result["label"], result["confidence"])
         if committed:
-            self._on_committed(committed, result["confidence"])
+            self._on_phrase_committed(committed, result["confidence"])
+        return result["annotated_frame"]
 
-        rgb = cv2.cvtColor(result["annotated_frame"], cv2.COLOR_BGR2RGB)
-        image = Image.fromarray(rgb)
-        image = image.resize((720, 540))
-        self._photo = ImageTk.PhotoImage(image)
-        self.camera_label.configure(image=self._photo)
-        self.root.after(20, self._tick)
+    def _tick_fingerspell(self, frame):
+        hands = self.tracker.process(frame)
+        hand = primary_hand(hands)
+        guess = guess_from_hand(hand)
+        letter = guess.letter if guess else None
+        confidence = guess.confidence if guess else 0.0
 
-    def _on_committed(self, phrase: str, confidence: float):
+        if guess:
+            self.live_label.set(guess.letter)
+            self.live_conf.set(f"{guess.confidence:.0%}")
+            extras = "  ".join(f"{lab} {conf:.0%}" for lab, conf in guess.alternatives[1:3])
+            self.alts_var.set(extras)
+        else:
+            self.live_label.set("…")
+            self.live_conf.set("")
+            self.alts_var.set("" if hands else "Show one hand to the camera")
+
+        event = self.speller.update(letter, confidence)
+        self.word_var.set(self.speller.current_word or "—")
+        self.sentence_var.set(self.speller.sentence())
+        if event:
+            self._on_spell_event(event)
+
+        return draw_fingerspell_overlay(frame, hands, guess, self.speller.current_word)
+
+    def _on_phrase_committed(self, phrase: str, _confidence: float):
         self.sentence_var.set(self.engine.sentence())
-        self.transcript.insert("end", f"[{datetime.now():%H:%M:%S}] {phrase}\n")
-        self.transcript.see("end")
+        self._append_transcript(phrase)
         self.status.set(self.engine.last_event)
         if self.tts_on.get():
             self.speaker.speak(phrase)
@@ -213,30 +351,74 @@ class ConversationStudio:
             if done and self.tts_on.get():
                 self.speaker.speak("Perfect")
 
+    def _on_spell_event(self, event):
+        self.word_var.set(self.speller.current_word or "—")
+        self.sentence_var.set(self.speller.sentence())
+        self.status.set(self.speller.last_event)
+        if event.kind == "letter":
+            self._append_transcript(f"  {event.value}")
+            if self.tts_letters_on.get():
+                self.speaker.speak(event.value)
+            if self.practice_on.get():
+                done = self.spell_practice.on_letter(event.value)
+                self.practice_msg.set(self.spell_practice.message)
+                if done and self.tts_on.get():
+                    self.speaker.speak("Perfect")
+        elif event.kind == "word":
+            self._append_transcript(event.value)
+            if self.tts_on.get():
+                self.speaker.speak(event.value)
+
+    def _append_transcript(self, text: str):
+        self.transcript.insert("end", f"[{datetime.now():%H:%M:%S}] {text}\n")
+        self.transcript.see("end")
+
+    def _commit_word(self):
+        word = self.speller.commit_word()
+        if not word:
+            self.status.set("No letters in the current word.")
+            return
+        self._on_spell_event(SpellEvent("word", word))
+
+    def _backspace(self):
+        self.speller.backspace()
+        self.word_var.set(self.speller.current_word or "—")
+        self.sentence_var.set(self.speller.sentence())
+        self.status.set(self.speller.last_event)
+
     def _undo(self):
-        self.engine.undo()
-        self.sentence_var.set(self.engine.sentence())
-        self.status.set(self.engine.last_event)
+        self._active_engine().undo()
+        self.word_var.set(self.speller.current_word or "—")
+        self.sentence_var.set(self._active_engine().sentence())
+        self.status.set(self._active_engine().last_event)
 
     def _clear(self):
-        self.engine.clear()
+        self._active_engine().clear()
         self.sentence_var.set("")
+        self.word_var.set("—")
         self.transcript.delete("1.0", "end")
-        self.status.set(self.engine.last_event)
+        self.status.set(self._active_engine().last_event)
 
     def _speak_sentence(self):
-        text = self.engine.end_sentence()
+        text = self._active_engine().end_sentence()
         if not text:
             self.status.set("Nothing to speak yet.")
             return
+        self.word_var.set(self.speller.current_word or "—")
+        self.sentence_var.set(self._active_engine().sentence())
         self.speaker.speak(text)
         self.status.set(f"Speaking: {text}")
 
     def _next_practice(self):
         self.practice_on.set(True)
-        self.practice.next_target()
-        self.practice_msg.set(self.practice.message)
-        self.status.set(self.practice.message)
+        if self._is_spell():
+            self.spell_practice.next_target()
+            self.practice_msg.set(self.spell_practice.message)
+            self.status.set(self.spell_practice.message)
+        else:
+            self.practice.next_target()
+            self.practice_msg.set(self.practice.message)
+            self.status.set(self.practice.message)
 
     def _export(self, kind: str):
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -249,20 +431,22 @@ class ConversationStudio:
         if not path:
             return
         out = Path(path)
+        engine = self._active_engine()
         if kind == "txt":
-            self.engine.export_txt(out)
+            engine.export_txt(out)
         else:
-            self.engine.export_json(out)
-        self.status.set(self.engine.last_event)
+            engine.export_json(out)
+        self.status.set(engine.last_event)
 
     def _on_close(self):
         if self.cap is not None:
             self.cap.release()
+        self.tracker.close()
         self.root.destroy()
 
     def run(self):
         self.root.mainloop()
 
 
-def main(model_path=None):
-    ConversationStudio(model_path=model_path).run()
+def main(model_path=None, mode: str = MODE_PHRASE):
+    ConversationStudio(model_path=model_path, mode=mode).run()
