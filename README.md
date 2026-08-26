@@ -18,11 +18,12 @@ The model processes images or real-time webcam input to identify hand gestures, 
 
 ## Features
 - **Real-time Detection:** Live hand gesture recognition using a webcam.  
-- **CNN-Based Model:** Deep learning model for accurate classification.  
+- **CNN-Based Model:** Deep learning model for accurate classification of phrase signs.  
 - **Multiple Classes:** Supports customizable sign language gestures.  
 - **Preprocessing Pipeline:** Includes hand tracking and image preprocessing.  
 - **Performance Metrics:** Evaluated using accuracy, confusion matrix, and balanced accuracy.  
 - **Conversation Mode (advanced):** Stable signs become a live sentence, with TTS speak-back, guided practice targets, confidence meters, undo/clear, and TXT/JSON transcript export (`python run_advanced.py`).  
+- **Fingerspell A–Z:** Spell words letter by letter from MediaPipe landmarks (two-hand tracking, word buffer, pause-to-commit, double-letter bounce, practice words such as HELLO / HELP). Works without `best_model.keras`.  
 
 ---
 ## Installation
@@ -44,7 +45,8 @@ venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
-4. Place your trained weights at the project root as `best_model.keras`.
+4. Phrase signs need trained weights at the project root as `best_model.keras`. **Fingerspell A–Z does not** — it uses the webcam and MediaPipe only.
+
 ## Dataset
 The dataset consists of images of hand gestures representing different classes of sign language.
 ```bash
@@ -97,8 +99,15 @@ Balanced Accuracy: Effective with class imbalance
 ### Advanced Conversation Studio (recommended)
 ```bash
 python run_advanced.py
+python run_advanced.py --mode fingerspell
 ```
-Features: live confidence bars, sentence buffer, text-to-speech, practice targets, export transcript.
+Phrase mode: live confidence bars, sentence buffer, text-to-speech, practice targets, export transcript.
+
+Fingerspell mode: A–Z from hand landmarks, current-word buffer, commit on pause, guided spelling practice (`HI`, `HELLO`, `HELP`, …). Hold a letter still to add it. Drop your hand briefly before repeating a letter (the two L’s in HELLO). J is static-I; Z is static-D because those letters need motion.
+
+```bash
+python -m pytest
+```
 
 ### Classic notebook UI
 ```bash
@@ -106,7 +115,7 @@ jupyter notebook Prediction.ipynb
 ```
 ## Future Improvements
 
-Expand dataset with more sign language gestures
+Train a landmark sequence model so J, Z, and other moving signs are recognized instead of approximated
 
 Add multilingual sign language support
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 import random
 from dataclasses import dataclass, field
 
-from .config import LABELS, PRACTICE_TARGETS
+from .config import LABELS, PRACTICE_TARGETS, SPELL_TARGETS
 
 
 @dataclass
@@ -52,3 +52,44 @@ class PracticeSession:
             if remaining == lab or remaining.startswith(lab + " "):
                 return lab
         return remaining or None
+
+
+@dataclass
+class SpellPractice:
+    """Guided A–Z practice — spell a target word letter by letter."""
+
+    targets: list[str] = field(default_factory=lambda: list(SPELL_TARGETS))
+    current: str = ""
+    index: int = 0
+    score: int = 0
+    attempts: int = 0
+    message: str = "Press Next Target, then fingerspell the word."
+
+    def next_target(self) -> str:
+        self.current = random.choice(self.targets)
+        self.index = 0
+        self.message = f"Spell: {self.current}  (next: {self.current[0]})"
+        return self.current
+
+    def expected_letter(self) -> str | None:
+        if not self.current or self.index >= len(self.current):
+            return None
+        return self.current[self.index]
+
+    def on_letter(self, letter: str) -> bool:
+        if not self.current:
+            self.message = "Choose a target first."
+            return False
+        self.attempts += 1
+        expected = self.expected_letter()
+        if letter != expected:
+            self.message = f"Expected “{expected}”, got “{letter}”."
+            return False
+        self.index += 1
+        if self.index >= len(self.current):
+            self.score += 1
+            self.message = f"Perfect! {self.current}  (score {self.score})"
+            return True
+        typed = self.current[: self.index]
+        self.message = f"{typed}_  next: {self.expected_letter()}"
+        return False
