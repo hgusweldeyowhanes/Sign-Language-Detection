@@ -42,3 +42,21 @@ SPELL_TARGETS = [
     "BYE",
     "THANKS",
 ]
+
+# Continuous SLR gloss vocabulary (English + EthSL / Amharic-oriented)
+# Extend with local Amharic sign glosses as you collect sequences.
+CSLR_LABELS = [
+    "HELLO",
+    "THANK_YOU",
+    "YES",
+    "NO",
+    "HELP",
+    "WATER",
+    "I_LOVE_YOU",
+    "GOODBYE",
+]
+CSLR_SEQ_LEN = 48
+CSLR_MODEL_DIR = ROOT / "artifacts" / "cslr"
+CSLR_DEFAULT_MODEL = CSLR_MODEL_DIR / "lstm_best.keras"
+CSLR_META = CSLR_MODEL_DIR / "model_meta.json"
+
