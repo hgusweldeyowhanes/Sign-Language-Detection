@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+
+# Local weights / edge exports
+*.keras
+*.h5
+*.tflite
+artifacts/**
+!artifacts/.gitkeep
+
+# Regenerable synthetic sequences (keep manifest)
+data/sequences/**/*.npz
+*.log
+.DS_Store

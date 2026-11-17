@@ -1,0 +1,1362 @@
+{
+  "labels": [
+    "HELLO",
+    "THANK_YOU",
+    "YES",
+    "NO",
+    "HELP",
+    "WATER",
+    "I_LOVE_YOU",
+    "GOODBYE"
+  ],
+  "feature_dim": 63,
+  "seq_len_default": 48,
+  "synthetic": true,
+  "samples": [
+    {
+      "path": "train/HELLO_000.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_001.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_002.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_003.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_004.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_005.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_006.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_007.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_008.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_009.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_010.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_011.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_012.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_013.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_014.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELLO_015.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/HELLO_016.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/HELLO_017.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/HELLO_018.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/HELLO_019.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/HELLO_020.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/HELLO_021.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/HELLO_022.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/HELLO_023.npz",
+      "label": "HELLO",
+      "label_id": 0,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_000.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_001.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_002.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_003.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_004.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_005.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_006.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_007.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_008.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_009.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_010.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_011.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_012.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_013.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_014.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/THANK_YOU_015.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/THANK_YOU_016.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/THANK_YOU_017.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/THANK_YOU_018.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/THANK_YOU_019.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/THANK_YOU_020.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/THANK_YOU_021.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/THANK_YOU_022.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/THANK_YOU_023.npz",
+      "label": "THANK_YOU",
+      "label_id": 1,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_000.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_001.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_002.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_003.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_004.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_005.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_006.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_007.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_008.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_009.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_010.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_011.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_012.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_013.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_014.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/YES_015.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/YES_016.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/YES_017.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/YES_018.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/YES_019.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/YES_020.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/YES_021.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/YES_022.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/YES_023.npz",
+      "label": "YES",
+      "label_id": 2,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_000.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_001.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_002.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_003.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_004.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_005.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_006.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_007.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_008.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_009.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_010.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_011.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_012.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_013.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_014.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/NO_015.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/NO_016.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/NO_017.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/NO_018.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/NO_019.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/NO_020.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/NO_021.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/NO_022.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/NO_023.npz",
+      "label": "NO",
+      "label_id": 3,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_000.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_001.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_002.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_003.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_004.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_005.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_006.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_007.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_008.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_009.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_010.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_011.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_012.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_013.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_014.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/HELP_015.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/HELP_016.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/HELP_017.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/HELP_018.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/HELP_019.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/HELP_020.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/HELP_021.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/HELP_022.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/HELP_023.npz",
+      "label": "HELP",
+      "label_id": 4,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_000.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_001.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_002.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_003.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_004.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_005.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_006.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_007.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_008.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_009.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_010.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_011.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_012.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_013.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_014.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/WATER_015.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/WATER_016.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/WATER_017.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/WATER_018.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/WATER_019.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/WATER_020.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/WATER_021.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/WATER_022.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/WATER_023.npz",
+      "label": "WATER",
+      "label_id": 5,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_000.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_001.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_002.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_003.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_004.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_005.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_006.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_007.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_008.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_009.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_010.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_011.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_012.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_013.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_014.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/I_LOVE_YOU_015.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/I_LOVE_YOU_016.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/I_LOVE_YOU_017.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/I_LOVE_YOU_018.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/I_LOVE_YOU_019.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/I_LOVE_YOU_020.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/I_LOVE_YOU_021.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/I_LOVE_YOU_022.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/I_LOVE_YOU_023.npz",
+      "label": "I_LOVE_YOU",
+      "label_id": 6,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_000.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_001.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_002.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_003.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_004.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_005.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_006.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_007.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_008.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_009.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_010.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_011.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_012.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_013.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_014.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "train/GOODBYE_015.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "train",
+      "frames": 48
+    },
+    {
+      "path": "val/GOODBYE_016.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/GOODBYE_017.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/GOODBYE_018.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "val/GOODBYE_019.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "val",
+      "frames": 48
+    },
+    {
+      "path": "test/GOODBYE_020.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/GOODBYE_021.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/GOODBYE_022.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "test",
+      "frames": 48
+    },
+    {
+      "path": "test/GOODBYE_023.npz",
+      "label": "GOODBYE",
+      "label_id": 7,
+      "split": "test",
+      "frames": 48
+    }
+  ],
+  "note": "Synthetic motion patterns for pipeline tests. Collect real MediaPipe sequences for research claims."
+}

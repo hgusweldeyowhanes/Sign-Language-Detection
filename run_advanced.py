@@ -26,11 +26,16 @@ def main():
     )
     parser.add_argument(
         "--mode",
-        choices=["phrases", "fingerspell"],
+        choices=["phrases", "fingerspell", "continuous"],
         default="phrases",
-        help="Start in phrase-sign mode or A–Z fingerspelling",
+        help="Phrase CNN, A–Z fingerspell, or continuous landmark CSLR",
     )
     args = parser.parse_args()
+    if args.mode == "continuous":
+        from run_continuous import run as run_cslr
+
+        run_cslr(model_path=Path(args.model) if args.model else None)
+        return
     from app.ui_advanced import main as run_ui
 
     run_ui(model_path=args.model, mode=args.mode)

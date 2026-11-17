@@ -1,124 +1,132 @@
-# Sign Language Detection Using Deep Learning and Computer Vision
+# Real-Time Sign Language Recognition Using Deep Learning
 
-## Project Overview
-This project aims to **detect and classify sign language gestures** using **Computer Vision** and a **Convolutional Neural Network (CNN)**.  
-The model processes images or real-time webcam input to identify hand gestures, making it useful for accessibility, communication, and educational applications.
+**Research focus:** *A Lightweight Spatiotemporal Deep Learning Framework for Continuous Sign Language Recognition.*
 
----
-## Table of Contents
-* [Features](#features)
-* [Installation](#installation)
-* [Dataset](#dataset)
-* [Technologies-Used](#technologies-used)
-* [Model-Architecture](#model-architecture)
-* [Performance](#performance)
-* [Usage](#usage)
-* [Futere-Improvement](#future-improvements)
-* [Conclusion](#conclusion)
+Fields: Computer Vision · Deep Learning · Accessibility  
 
-## Features
-- **Real-time Detection:** Live hand gesture recognition using a webcam.  
-- **CNN-Based Model:** Deep learning model for accurate classification of phrase signs.  
-- **Multiple Classes:** Supports customizable sign language gestures.  
-- **Preprocessing Pipeline:** Includes hand tracking and image preprocessing.  
-- **Performance Metrics:** Evaluated using accuracy, confusion matrix, and balanced accuracy.  
-- **Conversation Mode (advanced):** Stable signs become a live sentence, with TTS speak-back, guided practice targets, confidence meters, undo/clear, and TXT/JSON transcript export (`python run_advanced.py`).  
-- **Fingerspell A–Z:** Spell words letter by letter from MediaPipe landmarks (two-hand tracking, word buffer, pause-to-commit, double-letter bounce, practice words such as HELLO / HELP). Works without `best_model.keras`.  
+This repo extends the earlier isolated Amharic/ASL-style webcam demo into a **continuous** pipeline: **MediaPipe landmarks → CNN / LSTM / Transformer**, with robustness-oriented augmentation, edge export (TFLite), and an evaluation harness (accuracy, F1, latency, model size).
+
+> Isolated phrase CNN + rule-based fingerspelling remain available. Continuous CSLR is the research path.
 
 ---
-## Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/hgusweldeyowhanes/Sign-Language-Detection.git
-   cd Sign-Language-Detection
-   ```
-2. Create and activate a virtual environment:
- ```bash
- python -m venv venv
-# Linux/Mac
-source venv/bin/activate
-# Windows
-venv\Scripts\activate
-```
-3. Install dependencies:
+## Problem
+
+Recognizing individual static signs is easier than understanding **continuous** sign language in real environments—variable lighting, backgrounds, and signing speeds. This project targets continuous gloss streams on **low-resource devices**.
+
+## What’s included
+
+| Mode | Entry | Notes |
+|---|---|---|
+| Continuous CSLR (new) | `python run_continuous.py` or `python run_advanced.py --mode continuous` | Sliding-window landmark sequences |
+| Phrase CNN | `python run_advanced.py` | Isolated RGB crops → Keras CNN |
+| Fingerspell A–Z | `python run_advanced.py --mode fingerspell` | MediaPipe geometry (no CNN) |
+
+**Research contribution:** a lightweight spatiotemporal stack for continuous recognition under resource constraints, built on MediaPipe landmarks rather than heavy RGB video backbones.
+
+## Quick start
+
 ```bash
+python -m venv venv
+venv\Scripts\activate          # Windows
 pip install -r requirements.txt
-```
-4. Phrase signs need trained weights at the project root as `best_model.keras`. **Fingerspell A–Z does not** — it uses the webcam and MediaPipe only.
 
-## Dataset
-The dataset consists of images of hand gestures representing different classes of sign language.
+# 1) synthetic sequences (pipeline smoke test)
+python scripts/generate_synthetic_sequences.py
+
+# 2) train a lightweight model
+python scripts/train_cslr.py --arch lstm --epochs 15
+
+# 3) evaluate (accuracy, F1, latency, size)
+python scripts/eval_cslr.py --model artifacts/cslr/lstm_best.keras --robustness
+
+# 4) realtime continuous recognition
+python run_continuous.py
+```
+
+Compare architectures:
+
 ```bash
-Data/
-├── train/
-│   ├── CLASS_1/
-│   ├── CLASS_2/
-│   └── CLASS_3/
-├── test/
-│   ├── CLASS_1/
-│   ├── CLASS_2/
-│   └── CLASS_3/
-└── validation/
-    ├── CLASS_1/
-    ├── CLASS_2/
-    └── CLASS_3/
+python scripts/train_cslr.py --arch cnn1d
+python scripts/train_cslr.py --arch transformer
+python scripts/export_lightweight.py --model artifacts/cslr/cnn1d_best.keras --quantize
+```
+
+Collect **real** MediaPipe sequences (replace synthetic data for paper-quality claims):
+
+```bash
+python scripts/collect_sequences.py
+```
+
+## Continuous architecture
 
 ```
-## Technologies Used
-- **Python 3.x**
-- **OpenCV** – Image and video processing  
-- **Mediapipe / cvzone** – Hand tracking & keypoint extraction  
-- **TensorFlow / Keras** – CNN model training & inference  
-- **NumPy & Pandas** – Data handling  
-- **Matplotlib / Seaborn** – Performance visualization  
+Webcam
+  → MediaPipe Hands (21 landmarks × xyz)
+  → wrist-centered / scale-normalized features (63-D)
+  → sliding window (T=48) + speed/noise augmentation (train)
+  → cnn1d | BiLSTM | compact Transformer
+  → gloss debounce → continuous sentence buffer
+```
 
----
+Optional: export TFLite for phones / edge CPUs.
 
+## Evaluation protocol
 
-## Model Architecture
-Input Layer: 224×224 RGB images
+`scripts/eval_cslr.py` reports:
 
-Convolutional Layers: Multiple Conv2D layers with ReLU activation
+- **Accuracy**, **macro/weighted F1**
+- **Inference latency** (batch + per-sample ms)
+- **Model size** (parameter count, FP32 MB)
+- **`--robustness`**: speed jitter + landmark noise (proxy for signing speed / sensor noise)
 
-Pooling Layers: MaxPooling2D for dimensionality reduction
+## Project layout
 
-Dropout Layers: Prevents overfitting
+```
+app/
+  cslr/                 # continuous SLR framework
+    features.py         # landmark vectors, buffers, resample
+    models.py           # cnn1d / lstm / transformer
+    continuous.py       # streaming recognizer
+    augment.py          # speed / noise / dropout
+    dataset.py / metrics.py
+  landmarks.py          # MediaPipe tracker (shared)
+  ui_advanced.py        # Conversation Studio (phrases / fingerspell)
+scripts/
+  generate_synthetic_sequences.py
+  collect_sequences.py
+  train_cslr.py
+  eval_cslr.py
+  export_lightweight.py
+run_continuous.py
+run_advanced.py
+```
 
-Output Layer: Softmax classifier (number of gesture classes)
+## Technologies
 
-## Performance
-Accuracy: ~95–100% (depending on dataset & training)
+Python · OpenCV · MediaPipe · TensorFlow/Keras · LSTM · Transformers · scikit-learn · TFLite
 
-Confusion Matrix: Visualizes misclassifications
+## Legacy phrase / fingerspell
 
-Balanced Accuracy: Effective with class imbalance
+Phrase mode still expects `best_model.keras` for the 4-class RGB CNN (`GOODBYE`, `HELLO`, `I LOVE YOU`, `THANK YOU`). Fingerspell works without weights.
 
-## Usage
-
-### Advanced Conversation Studio (recommended)
 ```bash
 python run_advanced.py
 python run_advanced.py --mode fingerspell
-```
-Phrase mode: live confidence bars, sentence buffer, text-to-speech, practice targets, export transcript.
-
-Fingerspell mode: A–Z from hand landmarks, current-word buffer, commit on pause, guided spelling practice (`HI`, `HELLO`, `HELP`, …). Hold a letter still to add it. Drop your hand briefly before repeating a letter (the two L’s in HELLO). J is static-I; Z is static-D because those letters need motion.
-
-```bash
 python -m pytest
 ```
 
-### Classic notebook UI
-```bash
-jupyter notebook Prediction.ipynb
-```
-## Future Improvements
+## Extending to Amharic / EthSL
 
-Train a landmark sequence model so J, Z, and other moving signs are recognized instead of approximated
+1. Edit `CSLR_LABELS` in `app/config.py` with your gloss inventory.  
+2. Record clips via `scripts/collect_sequences.py`.  
+3. Retrain and evaluate; report latency/size on the target device.
 
-Add multilingual sign language support
+## Future work
 
-Deploy as a web or mobile app
-## Conclusion
+- CTC / attention decoding for unsegmented multi-gloss sentences  
+- Pose + two-hand fusion  
+- On-device TFLite benchmark table (phone / Pi)  
+- Larger EthSL / Amharic continuous corpus  
 
+Apache-2.0 · see [LICENSE](LICENSE)
